@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Effect of social identities on people’s prosocial attitudes towards refugees.</title>
+
+
+
+
+
+
+
+<!--
+Font-awesome icons ie github or twitter
+-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/brands.css" integrity="sha384-n9+6/aSqa9lBidZMRCQHTHKJscPq6NW4pCQBiMmHdUCvPN8ZOg2zJJTkC7WIezWv" crossorigin="anonymous">
+
+<!--
+Google fonts api stuff
+-->
+<link href='https://fonts.googleapis.com/css?family=Special Elite' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css?family=Rasa' rel='stylesheet'>
+
+<!--
+Here are the required style attributes for css to make this poster work :)
+-->
+<style>
+@page {
+size: 36in 48in;
+margin: 0;
+padding: 0;
+}
+body {
+margin: 0px;
+padding: 0px;
+width: 36in;
+height: 48in;
+text-align: justify;
+font-size: 45px;
+line-height: 1.05;
+}
+/* RMarkdown Class Styles */
+/* center align leaflet map,
+from https://stackoverflow.com/questions/52112119/center-leaflet-in-a-rmarkdown-document */
+.html-widget {
+margin: auto;
+position: sticky;
+margin-top: 2cm;
+margin-bottom: 2cm;
+}
+.leaflet.html-widget.html-widget-static-bound.leaflet-container.leaflet-touch.leaflet-fade-anim.leaflet-grab.leaflet-touch-drag.leaflet-touch-zoom {
+position: sticky;
+width: 100%;
+}
+pre.sourceCode.r {
+background-color: #dddddd40;
+border-radius: 4mm;
+padding: 4mm;
+width: 75%;
+margin: auto;
+margin-top: 1em;
+margin-bottom: 1em;
+/* align-items: center; */
+}
+code.sourceCode.r{
+background-color: transparent;
+font-size: 20pt;
+border-radius: 2mm;
+}
+code {
+font-size: 25pt;
+font-family: monospace;
+background-color: #00808024;
+color: #0b4545;
+padding: 1.2mm;
+line-height: 1;
+border-radius: 2mm;
+}
+caption {
+margin-bottom: 10px;
+font-size: 20pt;
+font-style: italic;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #00808020;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+  border-spacing: 0;
+  font-size: 40%;
+  border-style: none;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 1em;
+  padding-left: 1em;
+  line-height: 1em;
+}
+table {
+  margin: auto;
+}
+th {
+  padding-left: 5mm;
+  padding-right: 5mm;
+}
+.caption {
+font-size: 20pt;
+font-style: italic;
+padding-top: 0;
+}
+.references {
+font-size: 20px;
+line-height: 90%;
+}
+/* Create three unequal columns that floats next to each other */
+.column {
+float: left;
+padding: 0px;
+}
+.outer {
+width: 36in;
+height: calc(48in *  (1 - 5.0e-2 - 5.0e-2 - 0.01) );
+-webkit-column-count: 3; /* Chrome, Safari, Opera */
+-moz-column-count: 3; /* Firefox */
+column-count: 3;
+-webkit-column-fill: auto;
+-moz-column-fill: auto;
+column-fill: auto;
+column-gap: 0;
+padding-left: 0cm;
+padding-right: 0cm;
+/* -webkit-column-rule-width: 50%;
+-moz-column-rule-width: 50%;
+column-rule-width: 50%; */
+-webkit-column-rule-style: none;
+-moz-column-rule-style: none;
+column-rule-style: none;
+-webkit-column-rule-color: black;
+-moz-column-rule-color: black;
+column-rule-color: black;
+background-color: #ffffff;
+font-family: Rasa;
+margin-top: calc(48in *  5.0e-2 );
+padding-top: 1em;
+padding-bottom: 1em;
+}
+span.citation {
+  color: #008080;
+  font-weight: bold;
+}
+a {
+text-decoration: none;
+color: #008080;
+}
+#title {
+font-size: 125pt;
+text-align: left;
+margin: 0;
+line-height: 98%;
+border-bottom: 0;
+font-weight: normal;
+background: 0;
+}
+#author {
+color: #0b4545;
+margin: 0;
+line-height: 85%;
+font-size: 1.17em;
+}
+#affiliation {
+padding-top: 0.1em;
+color: ;
+font-style: italic;
+font-size: 25px;
+margin: 0;
+}
+sup {
+color: #cc0000;
+}
+.affiliation sup {
+font-size: 20px;
+}
+.author {
+text-align: left;
+}
+.author sup {
+font-size: 30px;
+}
+.author_extra {
+color: #008080;
+margin: 0;
+line-height: 85%;
+font-size: 35px;
+text-align: left;
+}
+.outer h1, h2, h3, h4, h5, h6 {
+text-align: center;
+margin: 0;
+font-weight: bold;
+}
+.section h1 {
+  text-align:center;
+  padding-bottom:5px;
+  background:
+    linear-gradient(
+      to left,
+      #ffffff 1%,
+      #ffffff 20%,
+      #0b454575 33%,
+      #0b4545 50%,
+      #0b454575 66%,
+      #ffffff 80%,
+      #ffffff 99%
+    )
+    left
+    bottom
+    #ffffff
+    no-repeat;
+  background-size:100% 5px ;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.outer h2 {
+text-align: center;
+}
+.outer p, .level2 {
+color: #000000;
+}
+.outer ol {
+padding-left: 8%;
+padding-right: 8%;
+text-align: left;
+}
+.main {
+width: 36in;
+height: calc(48in * 5.0e-2);
+position: absolute;
+background-color: #0b4545;
+color: #ffffff90;
+font-family: Special Elite;
+background-image: linear-gradient(#0b4545 50%,#008080);
+}
+.main strong {
+color: #ffffff;
+}
+.main strong > sup {
+color: #ffffff;
+}
+.main sup {
+color: #ffffff90;
+}
+#main-img-left {
+width: 10%;
+left: 0.5in;
+bottom: 0.2in;
+position: absolute;
+}
+#main-img-center {
+width: 10%;
+left: calc(36in * 0.45);
+bottom: 0.5in;
+position: absolute;
+}
+#main-img-right {
+width: 10%;
+right: 0.5in;
+bottom: 0.2in;
+position: absolute;
+}
+.main p {
+font-size: 150px;
+font-family: Special Elite;
+text-align: center;
+margin: 0;
+position: absolute;
+top: 50%;
+-ms-transform: translateY(-50%);
+transform: translateY(-50%);
+margin-left: 1em;
+}
+.fab {
+color: #00000030;
+font-size: 25px;
+}
+.twitter, i {
+color: #00000030;
+font-size: 35px;
+text-decoration: none;
+}
+a.email {
+text-decoration: none;
+color: #00000030;
+font-size: 35px;
+}
+.envelope {
+color: #00000030;
+font-size: 5px;
+text-decoration: none;
+}
+.poster_wrap {
+width: 36in;
+height: 48in;
+padding: 0cm;
+}
+.main_bottom {
+width: 36in;
+height: calc(48in * 5.0e-2);
+margin-top: calc(48in * (1 - 5.0e-2));
+position: absolute;
+background-color: #0b4545;
+background-image: linear-gradient(#008080 10%, #0b4545);
+}
+.section {
+  padding-left: 10mm;
+  padding-right: 10mm;
+}
+span > #tab:mytable {
+  font-weight: bold;
+}
+.orcid img {
+  width: 3%;
+}
+.emphasis {
+  background-color: #008080;
+  color: #ffffff;
+  border: solid #0b2045 3mm;
+  margin: 1em;
+  padding-left: 0;
+  padding-right: 0;
+}
+.emphasis h1 {
+  font-weight: bold;
+  background: none;
+  background-color: #0b2045;
+  padding-bottom: 5mm;
+  padding-top: 1mm;
+  margin-top: -1mm;
+  margin-right: -1mm;
+  margin-left: -1mm;
+}
+.emphasis blockquote {
+  border: 0;
+}
+.emphasis ol {
+  padding: 0;
+  padding-left: 8%;
+  font-size: 100%;
+  font-weight: bold;
+}
+.emphasis p {
+  color: #ffffff;
+}
+</style>
+</head>
+<body>
+
+
+<div class="poster_wrap">
+
+<div class="column outer">
+<div class="section">
+<h1 id="title">Effect of <strong>social identities</strong> on people’s <strong>prosocial attitudes</strong> towards <strong>refugees</strong>.</h1><br>
+<h3 id="author" class="author">
+
+</h3>
+
+<h5 id="author_extra", class="author_extra">
+Helen Souki Reyes<sup></sup>
+</h5>
+
+
+</div>
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>While national identities have contributed to reducing sub-national social divisions based on ethnicity and partisanship , sharing other superordinate identities can reduce the differences between national groups while redefining the borders between the “us” and “them” categories.</p>
+<p>In the case of migration inflows, studies have shown how the conceptualization of in-group identity determines an individual’s response toward immigrants and how recognizing immigrants as part of their in-group causes more positive attitudes toward them . As we have observed a recent shift in EU policies’ towards asylum seekers, we ask the following: <em>What determines individuals’ likelyhood of sharing prosocial attitudes towards refugees?</em></p>
+<div id="expectations" class="section level2">
+<h2>Expectations</h2>
+<p>Based on the existing literature, we expect that when people’s national identity is most salient, and framed as exclusive, will be less likely to share prosocial attitudes towards refugees (H1). Whereas we argue that when people’s European identity is more salient, there is a greater likelyhood of sharing these prosocial attitudes (H2).</p>
+</div>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>To answer our research question, we collected data from the Presse-und Informationsamt der Bundesregierung (GESIS) <strong>survey on Migration and Integration</strong>, conducted in 2021 and 2022. Which inquired the respondents’ about their concerns and opinions about the refugee situation in Germany. Each dataset holds are <strong>4547</strong> and <strong>4504</strong> observations respectively.</p>
+<p>Although this survey collected relevant information about the German population’s attitudes towards refugees, it does not raise important questions about national and European identity, which are important for this research. Consequently, party identification is used as a proxy to measure the salience of national and European identities. The <strong>Manifesto Project Database</strong> is used to categorize the respondent’s party identification within their feelings towards national way of life and attitudes towards the European Union (i.e.: in-favor or against).</p>
+</div>
+<div id="methods" class="section level1">
+<h1>Methods</h1>
+<p>MARPOR analyses the content of the parties’ manifestos and places these two items in content-based variables, the higher the value of these items means that they have a larger share of mentions within the overall number of content-based variables allocated for each manifesto. Hence, increasing values indicate a stronger national and European identity, respectively.</p>
+<p>On the other hand, we measure the expression of prosocial attitudes towards immigrants based on degree of acceptance. Here, used a question related to respondents’ opinions about the Ukrainians’ access to residence permits without needing asylum. If the respondents’ were in favor of this, they were given a 1, and a 0 if not.</p>
+<p>We also control for the weight of each survey response.</p>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<p>In 2021, we find that a strong national identity, associated with the individual’s identification with a nationalist party, and has a negative effect on their likelyhood of expressing prosocial attitudes towards refugees (see models 1 and 3).</p>
+<p>European identity salience does not have a statistically significant effect on people’s likelihood of perceiving the admission of refugees as more favorable in the short term, but it does have a statistically significant positive effect in the long term. In February, one unit increase in the degree of European identity salience is associated with an increase in the likelihood of considering the admission of refugees as favorable by 30.8 percentage points (b = 0.308, se = 0.055, p&lt;0.01).</p>
+<table style="text-align:center">
+<caption>
+<strong>Acceptance of Migrants</strong>
+</caption>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+Admission of Refugees, 2021
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+In the Short Term
+</td>
+<td colspan="2">
+In the Long Term
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+National Identity
+</td>
+<td>
+-0.491<sup>***</sup>
+</td>
+<td>
+</td>
+<td>
+-0.463<sup>***</sup>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.104)
+</td>
+<td>
+</td>
+<td>
+(0.089)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+European Identity
+</td>
+<td>
+</td>
+<td>
+0.096
+</td>
+<td>
+</td>
+<td>
+0.308<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.063)
+</td>
+<td>
+</td>
+<td>
+(0.055)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.651<sup>***</sup>
+</td>
+<td>
+-1.623<sup>***</sup>
+</td>
+<td>
+1.168<sup>***</sup>
+</td>
+<td>
+-0.752<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.129)
+</td>
+<td>
+(0.281)
+</td>
+<td>
+(0.126)
+</td>
+<td>
+(0.226)
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,373
+</td>
+<td>
+1,373
+</td>
+<td>
+1,530
+</td>
+<td>
+1,530
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Log Likelihood
+</td>
+<td>
+-471.520
+</td>
+<td>
+-516.503
+</td>
+<td>
+-629.352
+</td>
+<td>
+-726.291
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Akaike Inf. Crit.
+</td>
+<td>
+947.040
+</td>
+<td>
+1,037.005
+</td>
+<td>
+1,262.703
+</td>
+<td>
+1,456.582
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="4" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p>Again, in 2022 national identity salience consistently has significant negative effects on the likelihood of considering that refugee acceptance has more pros than cons by 50.1 percentage points in the short term (see model 1) and 46.4 percentage points in the long term (see model 3). On the other hand, European identity salience has a statistically significant positive effect on our outcome variable for both the short (b = 0.189, se = 0.055) and long term (b = 0.330, se = 0.055).</p>
+<table style="text-align:center">
+<caption>
+<strong>Acceptance of Migrants</strong>
+</caption>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+Admission of Refugees, 2022
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+In the Short Term
+</td>
+<td colspan="2">
+In the Long Term
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+National Identity
+</td>
+<td>
+-0.501<sup>***</sup>
+</td>
+<td>
+</td>
+<td>
+-0.464<sup>***</sup>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.088)
+</td>
+<td>
+</td>
+<td>
+(0.091)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+European Identity
+</td>
+<td>
+</td>
+<td>
+0.189<sup>***</sup>
+</td>
+<td>
+</td>
+<td>
+0.330<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.055)
+</td>
+<td>
+</td>
+<td>
+(0.055)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.442<sup>***</sup>
+</td>
+<td>
+-1.845<sup>***</sup>
+</td>
+<td>
+1.276<sup>***</sup>
+</td>
+<td>
+-0.779<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.128)
+</td>
+<td>
+(0.246)
+</td>
+<td>
+(0.126)
+</td>
+<td>
+(0.216)
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,456
+</td>
+<td>
+1,456
+</td>
+<td>
+1,604
+</td>
+<td>
+1,604
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Log Likelihood
+</td>
+<td>
+-554.543
+</td>
+<td>
+-619.334
+</td>
+<td>
+-650.494
+</td>
+<td>
+-779.670
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Akaike Inf. Crit.
+</td>
+<td>
+1,113.085
+</td>
+<td>
+1,242.668
+</td>
+<td>
+1,304.988
+</td>
+<td>
+1,563.340
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="4" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="overall-support-for-refugee-entrance-in-2022" class="section level1">
+<h1>Overall support for refugee entrance in 2022</h1>
+<p><img src="soukireyes_poster_files/figure-html/unnamed-chunk-5-1.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>Based on our results, we are able to reject the null hypotheses. Each of our predictors had a different effect on the outcome: national identity salience has negative effects on prosocial attitudes while European identity salience has positive effects on prosocial attitudes. These are relevant results especially within the context of the Russian invasion to Ukraine. Although we saw political leaders advocating for Ukrainians reception in Europe and large efforts in the support of Ukrainan refugees across the EU, the attitudes are very different along identity lines.</p>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>Lehmann, Pola / Burst, Tobias / Matthieß, Theres / Regel, Sven / Volkens, Andrea / Weßels, Bernhard / Zehnter, Lisa “The Manifesto Data Collection. Manifesto Project (MRG / CMP / MARPOR)”. Version 2022a. Berlin: Wissenschaftszentrum Berlin für Sozialforschung (WZB). 2022. <a href="https://doi.org/10.25522/manifesto.mpds.2022a" class="uri">https://doi.org/10.25522/manifesto.mpds.2022a</a>
+Presse-und Informationsamt der Bundesregierung, “Current Questions on Migration / Integration”. GESIS, Cologne. 2022. <a href="https://doi.org/10.4232/1.14041" class="uri">https://doi.org/10.4232/1.14041</a>. <a href="https://search.gesis.org/research_data/ZA7909" class="uri">https://search.gesis.org/research_data/ZA7909</a></p>
+</div>
+
+</div>
+<div class="main">
+<p>Refugee acceptance in Germany</p>
+</div>
+<div class="main_bottom">
+<img id="main-img-left" src=>
+<img id="main-img-center" src=>
+<img id="main-img-right" src=>
+</div>
+</div>
+
+
+
+</body>
+</html>

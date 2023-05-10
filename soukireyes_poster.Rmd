@@ -1,0 +1,172 @@
+---
+main_topsize: 0.05 
+main_bottomsize: 0.05
+title: Effect of **social identities** on people's **prosocial attitudes** towards **refugees**.
+author:
+  - name: Helen Souki Reyes
+main_findings:
+  - "Refugee acceptance in Germany"
+output: 
+  posterdown::posterdown_betterport:
+    self_contained: false
+    pandoc_args: --mathjax
+    number_sections: false
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(results = 'asis',
+                      echo = FALSE,
+                      warning = FALSE,
+                      tidy = FALSE,
+                      message = FALSE,
+                      fig.align = 'center',
+                      out.width = "100%")
+options(knitr.table.format = "html") 
+
+library('tidyverse')
+library('ggplot2')
+library("wesanderson")
+library('stargazer')
+library('patchwork')
+library(survey)
+
+load("~/MASTER/DATA ANALYSIS/ger2022.rda")
+load("~/MASTER/DATA ANALYSIS/ger2021.rda")
+
+#REGRESSIONS ------------
+dclus_2022 <- svydesign(id = ~lfd, weights = ~gewicht, data = ger2022_marpor, nest = TRUE)
+dclus_2021 <- svydesign(id = ~lfd, weights = ~gewicht, data = ger2021_marpor, nest = TRUE)
+```
+
+# Introduction
+
+While national identities have contributed to reducing sub-national social divisions based on ethnicity  and partisanship , sharing other superordinate identities can reduce the differences between national  groups while redefining the borders between the “us” and “them” categories.
+
+In the case of migration inflows, studies have shown how the conceptualization of in-group identity determines an individual's response toward immigrants  and how recognizing immigrants as part of their in-group causes more positive attitudes toward them . As we have observed a recent shift in EU policies' towards asylum seekers, we ask the following: _What determines individuals' likelyhood of sharing prosocial attitudes towards refugees?_
+
+## Expectations
+
+Based on the existing literature, we expect that when people's national identity is most salient, and framed as exclusive, will be less likely to share prosocial attitudes towards refugees (H1). Whereas we argue that when people's European identity is more salient, there is a greater likelyhood of sharing these prosocial attitudes (H2). 
+
+# Data
+
+To answer our research question, we collected data from the Presse-und Informationsamt der Bundesregierung (GESIS) **survey on Migration and Integration**, conducted in 2021 and 2022. Which inquired the respondents' about their concerns and opinions about the refugee situation in Germany. Each dataset holds are **4547** and **4504** observations respectively.
+
+Although this survey collected relevant information about the German population's attitudes towards refugees, it does not raise important questions about national and European identity, which are important for this research. Consequently, party identification is used as a proxy to measure the salience of national and European identities. The **Manifesto Project Database** is used to categorize the respondent’s party identification within their feelings towards national way of life and attitudes towards the European Union (i.e.: in-favor or against).  
+
+# Methods
+
+MARPOR analyses the content of the parties’ manifestos and places these two items in content-based variables, the higher the value of these items means that they have a larger share of mentions within the overall number of content-based variables allocated for each manifesto. Hence, increasing values indicate a stronger national and  European identity, respectively.
+
+On the other hand, we measure the expression of prosocial attitudes towards immigrants based on degree of acceptance. Here, used a question related to respondents' opinions about the Ukrainians' access to residence permits without needing asylum. If the respondents' were in favor of this, they were given a 1, and a 0 if not.
+
+We also control for the weight of each survey response.
+
+# Results
+
+```{r,include=FALSE, echo = FALSE}
+#2021---------
+#SHORT TERM ------------
+#NAT ID
+m1 <- svyglm(admiss_ref_short ~ per601, design = dclus_2021, 
+                     family = binomial(link = "logit"))
+# EUROPEAN ID
+m2<- svyglm(admiss_ref_short ~ per108, design = dclus_2021, 
+                    family = binomial(link = "logit"))
+se1 <- SE(m1)
+se2 <- SE(m2)
+#LONG TERM -----------
+m3 <- svyglm(admiss_ref_long ~ per601, design = dclus_2021, 
+                    family = binomial(link = "logit"))
+# EUROPEAN ID
+m4 <- svyglm(admiss_ref_long ~ per108, design = dclus_2021, 
+                   family = binomial(link = "logit"))
+se3 <- SE(m3)
+se4 <- SE(m4)
+
+#2022-------
+#ADMISSION REFUGEES IN THE SHORT TERM -----------
+#NATIONAL ID
+m5 <- svyglm(admiss_ref_short ~ per601, design = dclus_2022, 
+             family = binomial(link = "logit"))
+se5 <- SE(m5)
+# EUROPEAN ID
+m6 <- svyglm(admiss_ref_short ~ per108, design = dclus_2022, 
+             family = binomial(link = "logit"))
+se6 <- SE(m6)
+
+#ADMISSION REFUGEES IN THE LONG TERM -----------
+#NATIONAL ID
+m7 <- svyglm(admiss_ref_long ~ per601, design = dclus_2022, 
+             family = binomial(link = "logit"))
+se7 <- SE(m7)
+# EUROPEAN ID
+m8 <- svyglm(admiss_ref_long ~ per108, design = dclus_2022, 
+              family = binomial(link = "logit"))
+se8 <- SE(m8)
+
+mytheme <- theme(
+  plot.title = element_text(face = "bold.italic", hjust = 1, size = rel(1.5), vjust = 1, colour = 'black'),
+  axis.title = element_text(face = "bold.italic"),
+  plot.caption = element_text(hjust = 1, size = 6, colour = 'grey5'),
+  axis.title.y = element_blank(),
+  axis.title.x = element_blank(),
+  panel.background = element_blank(),
+  plot.background = element_blank(),
+  legend.position='none',
+  panel.grid.major.x = element_blank(),
+  panel.grid.major.y = element_line(color = "gray", size = .5),
+  text = element_text(family = "sans"),
+  axis.ticks.x = element_blank()
+)
+```
+
+In 2021, we find that a strong national identity, associated with the individual’s identification with a nationalist party, and has a negative effect on their likelyhood of expressing prosocial attitudes towards refugees (see models 1 and 3).
+
+European identity salience does not have a statistically significant effect on people’s likelihood of perceiving the admission of refugees as more favorable in the short term, but it does have a statistically significant positive effect in the long term. In February, one unit increase in the degree of European identity salience is associated with an increase in the likelihood of considering the admission of refugees as favorable by 30.8 percentage points (b = 0.308, se = 0.055, p<0.01).
+
+```{r,echo = FALSE}
+stargazer(m1, m2, m3, m4,
+          type = 'html',
+          se = list(se1, se2, se3, se4),
+          title='Acceptance of Migrants',
+          covariate.labels=c("National Identity", 'European Identity'),
+          dep.var.caption = "Admission of Refugees, 2021",
+          dep.var.labels = c('In the Short Term', 'In the Long Term'),
+          align=TRUE, no.space=TRUE)
+```
+
+Again, in 2022 national identity salience consistently has significant negative effects on the likelihood of considering that refugee acceptance has more pros than cons by 50.1 percentage points in the short term (see model 1) and 46.4 percentage points in the long term (see model 3). On the other hand, European identity salience has a statistically significant positive effect on our outcome variable for both the short (b = 0.189, se = 0.055) and long term (b = 0.330, se = 0.055).
+
+```{r,echo = FALSE}
+stargazer(m5, m6, m7, m8,
+          type = 'html',
+          se = list(se5, se6, se7, se8),
+          title='Acceptance of Migrants',
+          covariate.labels=c("National Identity", 'European Identity'),
+          dep.var.caption = "Admission of Refugees, 2022",
+          dep.var.labels = c('In the Short Term', 'In the Long Term'),
+          align=TRUE, no.space=TRUE)
+```
+
+# Overall support for refugee entrance in 2022
+```{r, echo=FALSE,collapse=TRUE, fig.height=3.5, out.width="80%"}
+nat<- ger2022_marpor %>% ggplot(aes(x = admiss_ref_short)) + geom_histogram(fill = "#008080", 
+                                                                            border = "#0b4545", binwidth = 0.5) +
+  labs(x = "More pros or cons in the Short Term") +  scale_x_continuous(breaks = c(0, 1)) +
+  mytheme
+
+eu <- ger2022_marpor %>% ggplot(aes(x = admiss_ref_long)) + geom_histogram(fill = "#008080", 
+                                                                        border = "#0b4545", binwidth = 0.5) +
+  labs(x = "More pros or cons in the Long Term") + scale_x_continuous(breaks = c(0, 1)) + mytheme
+
+nat + eu
+```
+
+# Conclusion
+
+Based on our results, we are able to reject the null hypotheses. Each of our predictors had a different effect on the outcome: national identity salience has negative effects on prosocial attitudes while European identity salience has positive effects on prosocial attitudes. These are relevant results especially within the context of the Russian invasion to Ukraine. Although we saw political leaders advocating for Ukrainians reception in Europe and large efforts in the support of Ukrainan refugees across the EU, the attitudes are very different along identity lines. 
+
+# References
+Lehmann, Pola / Burst, Tobias / Matthieß, Theres / Regel, Sven / Volkens, Andrea / Weßels, Bernhard / Zehnter, Lisa "The Manifesto Data Collection. Manifesto Project (MRG / CMP / MARPOR)". Version 2022a. Berlin: Wissenschaftszentrum Berlin für Sozialforschung (WZB). 2022. https://doi.org/10.25522/manifesto.mpds.2022a
+Presse-und Informationsamt der Bundesregierung, “Current Questions on Migration / Integration”. GESIS, Cologne. 2022. https://doi.org/10.4232/1.14041. https://search.gesis.org/research_data/ZA7909
