@@ -3,6 +3,8 @@
 
 Using a template from `posterdown`, I developed a poster showcasing some findings when analyzing the effects of National and European identity salience on the likelyhood of sharing prosocial attitudes towards refugees. 
 
+You'll find this poster (here)[file:///Users/helensouki/Documents/MASTER/DATA%20ANALYSIS/SoukiReyes.html]
+
 ## Argument
 
 Since the Russian invasion to Ukraine last year, public opinion seems to have shifted into a more favorable opinion towards asylum seekers. Here, we argue that when individuals are more likely to perceive refugees as part of the in-group (i.e.: fellow Europeans), they are more likely to express prosocial attitudes towards them.
