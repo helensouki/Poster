@@ -3,7 +3,7 @@
 
 Using a template from `posterdown`, I developed a poster showcasing some findings when analyzing the effects of National and European identity salience on the likelyhood of sharing prosocial attitudes towards refugees. 
 
-You'll find this poster [here](file:///Users/helensouki/Documents/MASTER/DATA%20ANALYSIS/SoukiReyes.html).
+You'll find this poster [here](file:///Users/helensouki/Documents/MASTER/DATA%20ANALYSIS/soukireyes_poster.html).
 
 ## Argument
 
